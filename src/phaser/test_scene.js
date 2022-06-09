@@ -146,6 +146,7 @@ class TestScene extends Phaser.Scene {
 
   update() {
     if (this.gameOver) {
+      return;
     }
 
     if (this.cursor.left.isDown) {
