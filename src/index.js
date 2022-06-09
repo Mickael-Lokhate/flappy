@@ -2,25 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./components/App";
-import Phaser from "phaser";
 import reportWebVitals from "./reportWebVitals";
-import TestScene from "./phaser/test_scene";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
-const config = {
-  type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  physics: {
-    default: "arcade",
-    arcade: {
-      gravity: { y: 200 },
-    },
-  },
-  scene: TestScene,
-};
-
-const game = new Phaser.Game(config);
+import BaseGame from "./components/BaseGame";
+import Platform from "./components/Platform";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -28,6 +13,8 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/base-game" element={<BaseGame />} />
+        <Route path="/platform-game" element={<Platform />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
