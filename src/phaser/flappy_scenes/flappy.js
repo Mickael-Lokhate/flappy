@@ -36,6 +36,8 @@ class FlappyScene extends Phaser.Scene {
   }
   update() {
     this.playerInput();
+
+    this.ground.tilePositionX += 2;
   }
 
   createPlayer() {
@@ -46,18 +48,19 @@ class FlappyScene extends Phaser.Scene {
     this.anims.create({
       key: "still",
       frames: [{ key: "player", frame: 0 }],
-      frameRate: 10,
+      frameRate: 15,
     });
     this.anims.create({
       key: "fly",
       frames: this.anims.generateFrameNumbers("player", { start: 0, end: 3 }),
-      frameRate: 10,
+      frameRate: 15,
       repeat: -1,
     });
   }
 
   createGround() {
-    this.ground = this.physics.add.staticImage(0, 750, "ground");
+    this.ground = this.add.tileSprite(0, 750, 0, 0, "ground");
+    this.physics.add.existing(this.ground, true);
   }
 
   createCollide() {
