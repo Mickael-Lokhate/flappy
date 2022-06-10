@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BaseGame from "./components/BaseGame";
 import Platform from "./components/Platform";
+import Pong from "./components/Pong";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,6 +16,7 @@ root.render(
         <Route path="/" element={<App />} />
         <Route path="/base-game" element={<BaseGame />} />
         <Route path="/platform-game" element={<Platform />} />
+        <Route path="/pong" element={<Pong />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

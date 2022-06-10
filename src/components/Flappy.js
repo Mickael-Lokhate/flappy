@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { useEffect } from "react";
-import FlappyScene from "../phaser/flappy";
+import FlappyScene from "../phaser/flappy_scenes/flappy";
 
 const config = {
   width: 600,
