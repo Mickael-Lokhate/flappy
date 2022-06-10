@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BaseGame from "./components/BaseGame";
 import Platform from "./components/Platform";
 import Pong from "./components/Pong";
+import Flappy from "./components/Flappy";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,6 +18,7 @@ root.render(
         <Route path="/base-game" element={<BaseGame />} />
         <Route path="/platform-game" element={<Platform />} />
         <Route path="/pong" element={<Pong />} />
+        <Route path="/flappy" element={<Flappy />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
