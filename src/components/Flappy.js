@@ -5,14 +5,14 @@ import FlappyScene from "../phaser/flappy_scenes/flappy";
 
 const config = {
   width: 450,
-  height: 800,
+  height: 700,
   type: Phaser.AUTO,
   parent: "flappy-game",
   physics: {
     default: "arcade",
     arcade: {
       gravity: { y: 300 },
-      debug: false,
+      debug: true,
     },
   },
   scene: [FlappyScene, BackgroundScene],

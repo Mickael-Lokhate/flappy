@@ -6,10 +6,11 @@ class FlappyScene extends Phaser.Scene {
   }
 
   init() {
-    this.pipes = this.physics.add.staticGroup();
+    this.pause = false;
     this.scene.run("back");
     this.scene.sendToBack("back");
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.nextPipe = 0;
   }
 
   preload() {
@@ -17,6 +18,15 @@ class FlappyScene extends Phaser.Scene {
       "ground",
       process.env.PUBLIC_URL + "assets/flappy/ground.png"
     );
+    this.load.image(
+      "pipe_bottom",
+      process.env.PUBLIC_URL + "assets/flappy/pipeb.png"
+    );
+    this.load.image(
+      "pipe_top",
+      process.env.PUBLIC_URL + "assets/flappy/pipet.png"
+    );
+    this.load.image("star", process.env.PUBLIC_URL + "assets/flappy/star.png");
 
     this.load.spritesheet(
       "player",
@@ -29,6 +39,8 @@ class FlappyScene extends Phaser.Scene {
   }
   create() {
     this.createPlayer();
+    this.pipes = this.physics.add.staticGroup();
+    // this.createPipe();
     this.createGround();
     this.createCollide();
 
@@ -37,7 +49,21 @@ class FlappyScene extends Phaser.Scene {
   update() {
     this.playerInput();
 
-    this.ground.tilePositionX += 2;
+    if (!this.pause) {
+      this.ground.tilePositionX += 2;
+      this.pipes.incX(-1).refresh();
+
+      this.pipes.children.iterate((child) => {
+        if (child === undefined) return;
+        if (child.x < -50) child.destroy();
+      });
+
+      this.nextPipe++;
+      if (this.nextPipe === 200) {
+        this.createPipe();
+        this.nextPipe = 0;
+      }
+    }
   }
 
   createPlayer() {
@@ -59,17 +85,27 @@ class FlappyScene extends Phaser.Scene {
   }
 
   createGround() {
-    this.ground = this.add.tileSprite(0, 750, 0, 0, "ground");
+    this.ground = this.add.tileSprite(0, 650, 0, 0, "ground");
     this.physics.add.existing(this.ground, true);
   }
 
   createCollide() {
     this.physics.add.collider(this.player, this.ground);
+    this.physics.add.collider(this.pipes, this.player, () => {
+      this.pause = true;
+      this.player.anims.pause();
+    });
   }
 
-  createPipe(x, y) {}
+  createPipe() {
+    const y = Phaser.Math.Between(-100, 150);
+
+    this.pipes.create(450, y, "pipe_top");
+    this.pipes.create(450, y + 600, "pipe_bottom");
+  }
 
   playerInput() {
+    if (this.pause) return;
     if (this.cursors.space.isDown) {
       this.player.body.setVelocityY(-150);
       this.player.anims.play("fly", true);
