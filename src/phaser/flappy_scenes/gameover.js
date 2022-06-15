@@ -13,7 +13,7 @@ class GameOverScene extends Phaser.Scene {
   preload() {
     this.load.image(
       "gameover",
-      process.env.PUBLIC_URL + "assets/flappy/gameover.png"
+      process.env.PUBLIC_URL + "/assets/flappy/gameover.png"
     );
   }
 

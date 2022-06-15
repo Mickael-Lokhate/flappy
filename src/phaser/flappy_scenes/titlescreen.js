@@ -15,11 +15,11 @@ class TitleScreenScene extends Phaser.Scene {
   preload() {
     this.load.image(
       "titlescreen",
-      process.env.PUBLIC_URL + "assets/flappy/titlescreen.png"
+      process.env.PUBLIC_URL + "/assets/flappy/titlescreen.png"
     );
     this.load.image(
       "bird",
-      process.env.PUBLIC_URL + "assets/flappy/bird_solo.png"
+      process.env.PUBLIC_URL + "/assets/flappy/bird_solo.png"
     );
   }
 

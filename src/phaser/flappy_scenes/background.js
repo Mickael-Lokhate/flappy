@@ -8,16 +8,16 @@ class BackgroundScene extends Phaser.Scene {
   preload() {
     this.load.image(
       "back",
-      process.env.PUBLIC_URL + "assets/flappy/background-day.png"
+      process.env.PUBLIC_URL + "/assets/flappy/background-day.png"
     );
 
     this.load.image(
       "clouds",
-      process.env.PUBLIC_URL + "assets/flappy/cloudss.png"
+      process.env.PUBLIC_URL + "/assets/flappy/cloudss.png"
     );
     this.load.image(
       "cloudl",
-      process.env.PUBLIC_URL + "assets/flappy/cloudsl.png"
+      process.env.PUBLIC_URL + "/assets/flappy/cloudsl.png"
     );
   }
   create() {
