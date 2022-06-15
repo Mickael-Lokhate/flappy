@@ -15,21 +15,21 @@ class FlappyScene extends Phaser.Scene {
   preload() {
     this.load.image(
       "ground",
-      process.env.PUBLIC_URL + "assets/flappy/ground.png"
+      process.env.PUBLIC_URL + "/assets/flappy/ground.png"
     );
     this.load.image(
       "pipe_bottom",
-      process.env.PUBLIC_URL + "assets/flappy/pipeb.png"
+      process.env.PUBLIC_URL + "/assets/flappy/pipeb.png"
     );
     this.load.image(
       "pipe_top",
-      process.env.PUBLIC_URL + "assets/flappy/pipet.png"
+      process.env.PUBLIC_URL + "/assets/flappy/pipet.png"
     );
-    this.load.image("star", process.env.PUBLIC_URL + "assets/flappy/star.png");
+    this.load.image("star", process.env.PUBLIC_URL + "/assets/flappy/star.png");
 
     this.load.spritesheet(
       "player",
-      process.env.PUBLIC_URL + "assets/flappy/bird.png",
+      process.env.PUBLIC_URL + "/assets/flappy/bird.png",
       {
         frameWidth: 34,
         frameHeight: 24,
@@ -77,23 +77,23 @@ class FlappyScene extends Phaser.Scene {
   loadAudios() {
     this.load.audio(
       "wing",
-      process.env.PUBLIC_URL + "assets/flappy/audio/wing.wav"
+      process.env.PUBLIC_URL + "/assets/flappy/audio/wing.wav"
     );
     this.load.audio(
       "die",
-      process.env.PUBLIC_URL + "assets/flappy/audio/die.wav"
+      process.env.PUBLIC_URL + "/assets/flappy/audio/die.wav"
     );
     this.load.audio(
       "hit",
-      process.env.PUBLIC_URL + "assets/flappy/audio/hit.wav"
+      process.env.PUBLIC_URL + "/assets/flappy/audio/hit.wav"
     );
     this.load.audio(
       "point",
-      process.env.PUBLIC_URL + "assets/flappy/audio/point.wav"
+      process.env.PUBLIC_URL + "/assets/flappy/audio/point.wav"
     );
     this.load.audio(
       "swoosh",
-      process.env.PUBLIC_URL + "assets/flappy/audio/swoosh.wav"
+      process.env.PUBLIC_URL + "/assets/flappy/audio/swoosh.wav"
     );
   }
 
