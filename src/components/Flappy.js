@@ -2,6 +2,8 @@ import Phaser from "phaser";
 import { useEffect } from "react";
 import BackgroundScene from "../phaser/flappy_scenes/background";
 import FlappyScene from "../phaser/flappy_scenes/flappy";
+import GameOverScene from "../phaser/flappy_scenes/gameover";
+import TitleScreenScene from "../phaser/flappy_scenes/titlescreen";
 
 const config = {
   width: 450,
@@ -15,7 +17,7 @@ const config = {
       debug: true,
     },
   },
-  scene: [FlappyScene, BackgroundScene],
+  scene: [TitleScreenScene, FlappyScene, BackgroundScene, GameOverScene],
 };
 
 function Flappy() {

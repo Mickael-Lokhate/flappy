@@ -2,15 +2,14 @@ import Phaser from "phaser";
 
 class FlappyScene extends Phaser.Scene {
   constructor() {
-    super("Flappy Scene");
+    super("flappy");
   }
 
   init() {
     this.pause = false;
-    this.scene.run("back");
-    this.scene.sendToBack("back");
     this.cursors = this.input.keyboard.createCursorKeys();
     this.nextPipe = 0;
+    this.score = 0;
   }
 
   preload() {
@@ -28,15 +27,6 @@ class FlappyScene extends Phaser.Scene {
     );
     this.load.image("star", process.env.PUBLIC_URL + "assets/flappy/star.png");
 
-    this.load.image(
-      "clouds",
-      process.env.PUBLIC_URL + "assets/flappy/cloudss.png"
-    );
-    this.load.image(
-      "cloudl",
-      process.env.PUBLIC_URL + "assets/flappy/cloudsl.png"
-    );
-
     this.load.spritesheet(
       "player",
       process.env.PUBLIC_URL + "assets/flappy/bird.png",
@@ -49,28 +39,35 @@ class FlappyScene extends Phaser.Scene {
     this.loadAudios();
   }
   create() {
-    this.createClouds();
     this.createPlayer();
     this.pipes = this.physics.add.staticGroup();
     this.createGround();
     this.createCollide();
+
+    this.scoreText = this.add
+      .text(225, 100, `${this.score}`, { fontSize: 64, color: "black" })
+      .setOrigin(0.5, 0.5)
+      .setDepth(2);
   }
   update() {
     this.playerInput();
 
     if (!this.pause) {
       this.ground.tilePositionX += 1;
-      this.cloudLarge.tilePositionX += 0.5;
-      this.cloudSmall.tilePositionX += 0.25;
-      this.pipes.incX(-1).refresh();
+      this.pipes.incX(-2).refresh();
 
       this.pipes.children.iterate((child) => {
         if (child === undefined) return;
         if (child.x < -50) child.destroy();
+        if (this.player.x === child.x) {
+          this.score += 0.5;
+          this.sound.play("point");
+          this.scoreText.setText(this.score);
+        }
       });
 
       this.nextPipe++;
-      if (this.nextPipe === 180) {
+      if (this.nextPipe === 100) {
         this.createPipe();
         this.nextPipe = 0;
       }
@@ -98,11 +95,6 @@ class FlappyScene extends Phaser.Scene {
       "swoosh",
       process.env.PUBLIC_URL + "assets/flappy/audio/swoosh.wav"
     );
-  }
-
-  createClouds() {
-    this.cloudSmall = this.add.tileSprite(0, 200, 1280, 400, "clouds");
-    this.cloudLarge = this.add.tileSprite(0, 200, 1280, 400, "cloudl");
   }
 
   createPlayer() {
@@ -134,6 +126,7 @@ class FlappyScene extends Phaser.Scene {
     this.physics.add.collider(this.pipes, this.player, () => {
       this.pause = true;
       this.player.anims.pause();
+      this.scene.start("gameover", { score: this.score });
     });
   }
 
@@ -141,18 +134,26 @@ class FlappyScene extends Phaser.Scene {
     const y = Phaser.Math.Between(-100, 150);
 
     this.pipes.create(450, y, "pipe_top");
-    this.pipes.create(450, y + 615, "pipe_bottom");
+    this.pipes.create(450, y + 520, "pipe_bottom");
+  }
+
+  handlePlayerMove() {
+    this.player.body.setVelocityY(-150);
+    this.player.setAngle(-20);
+    this.player.anims.play("fly", true);
+    this.sound.play("wing");
   }
 
   playerInput() {
     if (this.pause) return;
     if (this.cursors.space.isDown) {
-      this.player.body.setVelocityY(-150);
-      this.player.anims.play("fly", true);
-      this.sound.play("wing");
+      this.handlePlayerMove();
     } else {
       this.player.anims.play("still");
+      this.player.setAngle(20);
     }
+
+    this.input.on("pointerdown", this.handlePlayerMove, this);
   }
 }
 
