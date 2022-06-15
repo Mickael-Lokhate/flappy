@@ -28,6 +28,15 @@ class FlappyScene extends Phaser.Scene {
     );
     this.load.image("star", process.env.PUBLIC_URL + "assets/flappy/star.png");
 
+    this.load.image(
+      "clouds",
+      process.env.PUBLIC_URL + "assets/flappy/cloudss.png"
+    );
+    this.load.image(
+      "cloudl",
+      process.env.PUBLIC_URL + "assets/flappy/cloudsl.png"
+    );
+
     this.load.spritesheet(
       "player",
       process.env.PUBLIC_URL + "assets/flappy/bird.png",
@@ -36,21 +45,23 @@ class FlappyScene extends Phaser.Scene {
         frameHeight: 24,
       }
     );
+
+    this.loadAudios();
   }
   create() {
+    this.createClouds();
     this.createPlayer();
     this.pipes = this.physics.add.staticGroup();
-    // this.createPipe();
     this.createGround();
     this.createCollide();
-
-    this.physics.add.collider(this.player, this.pipes);
   }
   update() {
     this.playerInput();
 
     if (!this.pause) {
-      this.ground.tilePositionX += 2;
+      this.ground.tilePositionX += 1;
+      this.cloudLarge.tilePositionX += 0.5;
+      this.cloudSmall.tilePositionX += 0.25;
       this.pipes.incX(-1).refresh();
 
       this.pipes.children.iterate((child) => {
@@ -59,11 +70,39 @@ class FlappyScene extends Phaser.Scene {
       });
 
       this.nextPipe++;
-      if (this.nextPipe === 200) {
+      if (this.nextPipe === 180) {
         this.createPipe();
         this.nextPipe = 0;
       }
     }
+  }
+
+  loadAudios() {
+    this.load.audio(
+      "wing",
+      process.env.PUBLIC_URL + "assets/flappy/audio/wing.wav"
+    );
+    this.load.audio(
+      "die",
+      process.env.PUBLIC_URL + "assets/flappy/audio/die.wav"
+    );
+    this.load.audio(
+      "hit",
+      process.env.PUBLIC_URL + "assets/flappy/audio/hit.wav"
+    );
+    this.load.audio(
+      "point",
+      process.env.PUBLIC_URL + "assets/flappy/audio/point.wav"
+    );
+    this.load.audio(
+      "swoosh",
+      process.env.PUBLIC_URL + "assets/flappy/audio/swoosh.wav"
+    );
+  }
+
+  createClouds() {
+    this.cloudSmall = this.add.tileSprite(0, 200, 1280, 400, "clouds");
+    this.cloudLarge = this.add.tileSprite(0, 200, 1280, 400, "cloudl");
   }
 
   createPlayer() {
@@ -87,6 +126,7 @@ class FlappyScene extends Phaser.Scene {
   createGround() {
     this.ground = this.add.tileSprite(0, 650, 0, 0, "ground");
     this.physics.add.existing(this.ground, true);
+    this.ground.setDepth(1);
   }
 
   createCollide() {
@@ -101,7 +141,7 @@ class FlappyScene extends Phaser.Scene {
     const y = Phaser.Math.Between(-100, 150);
 
     this.pipes.create(450, y, "pipe_top");
-    this.pipes.create(450, y + 600, "pipe_bottom");
+    this.pipes.create(450, y + 615, "pipe_bottom");
   }
 
   playerInput() {
@@ -109,6 +149,7 @@ class FlappyScene extends Phaser.Scene {
     if (this.cursors.space.isDown) {
       this.player.body.setVelocityY(-150);
       this.player.anims.play("fly", true);
+      this.sound.play("wing");
     } else {
       this.player.anims.play("still");
     }
