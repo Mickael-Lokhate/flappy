@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Multiple Games",
+  "name": "Learn Phaser 3 by creating multiples little games",
   "icons": [
     {
       "src": "favicon.ico",
