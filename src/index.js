@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BaseGame from "./components/BaseGame";
@@ -14,11 +13,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Flappy />} />
         <Route path="/base-game" element={<BaseGame />} />
         <Route path="/platform-game" element={<Platform />} />
         <Route path="/pong" element={<Pong />} />
-        <Route path="/flappy" element={<Flappy />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

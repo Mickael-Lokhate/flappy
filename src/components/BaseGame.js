@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Phaser from "phaser";
 import TestScene from "../phaser/test_scene";
-import "./App.css";
 
 const config = {
   type: Phaser.AUTO,

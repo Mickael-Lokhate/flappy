@@ -2,6 +2,7 @@
   "name": "flappy",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://mickael-lokhate.github.io/flappy/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -17,6 +18,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -39,6 +42,7 @@
     ]
   },
   "devDependencies": {
-    "@types/webfontloader": "^1.6.34"
+    "@types/webfontloader": "^1.6.34",
+    "gh-pages": "^4.0.0"
   }
 }

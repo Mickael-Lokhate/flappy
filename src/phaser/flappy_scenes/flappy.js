@@ -138,7 +138,7 @@ class FlappyScene extends Phaser.Scene {
   }
 
   handlePlayerMove() {
-    this.player.body.setVelocityY(-150);
+    this.player.body.setVelocityY(-200);
     this.player.setAngle(-15);
     this.player.anims.play("fly", true);
     this.sound.play("wing");
