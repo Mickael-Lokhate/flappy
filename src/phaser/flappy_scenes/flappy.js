@@ -134,12 +134,12 @@ class FlappyScene extends Phaser.Scene {
     const y = Phaser.Math.Between(-100, 150);
 
     this.pipes.create(450, y, "pipe_top");
-    this.pipes.create(450, y + 520, "pipe_bottom");
+    this.pipes.create(450, y + 550, "pipe_bottom");
   }
 
   handlePlayerMove() {
     this.player.body.setVelocityY(-150);
-    this.player.setAngle(-20);
+    this.player.setAngle(-15);
     this.player.anims.play("fly", true);
     this.sound.play("wing");
   }
@@ -150,7 +150,7 @@ class FlappyScene extends Phaser.Scene {
       this.handlePlayerMove();
     } else {
       this.player.anims.play("still");
-      this.player.setAngle(20);
+      this.player.setAngle(15);
     }
 
     this.input.on("pointerdown", this.handlePlayerMove, this);
